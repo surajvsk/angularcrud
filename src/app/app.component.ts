@@ -41,7 +41,7 @@ export class AppComponent {
     //AJAX call to delete user asp api
   }
 
-  saveUser() {
+  saveUser () {
     // Logic to handle edit action, for example, redirecting to an edit page
     let name = (<HTMLInputElement>document.getElementById('name')).value;
     let email = (<HTMLInputElement>document.getElementById('email')).value;
@@ -58,9 +58,24 @@ export class AppComponent {
     }
 
     console.log('Save user:', obj);
-    // Add your logic here, for example, redirecting to edit page with user id
-    // this.router.navigate(['/edit-user', user.id]);
-    //AJAX call to delete user asp api
+
+    const response = fetch('http://localhost:3000/create', {
+      method: "POST", 
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj)
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+      console.log('Return Data',data);
+    }).catch(err => {
+      console.log(err);
+    });
   }
+
+
+
 
 }
